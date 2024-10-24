@@ -1,5 +1,5 @@
-Rule Engine with Abstract Syntax Tree (AST)
-Objective
+**Rule Engine with Abstract Syntax Tree (AST)**
+**Objective**
 The aim of this project is to develop a 3-tier rule engine that determines user eligibility based on attributes like age, department, income, and experience. This engine will utilize Abstract Syntax Trees (AST) to dynamically represent, create, combine, and evaluate rules.
 This document outlines the following:
 1.	AST Data Structure: A flexible structure that represents logical and conditional expressions.
@@ -16,7 +16,7 @@ The sample rules used in this project are:
 •	rule2: "((age > 30 AND department = 'Marketing')) AND (salary > 20000 OR experience > 5)"
 These rules will be represented as ASTs and evaluated against user data.
 ________________________________________
-1. AST Data Structure
+**1. AST Data Structure**
 The Abstract Syntax Tree (AST) is a tree-based representation of logical and conditional expressions. Each node in the AST represents either:
 •	An operator node (e.g., AND, OR) that connects other nodes.
 •	An operand node (e.g., age > 30, salary > 50000) that represents the conditions.
@@ -44,7 +44,7 @@ Each node is defined by:
 •	left and right: Reference to child nodes.
 This tree-like structure makes it easier to traverse and evaluate the rules logically.
 ________________________________________
-2. Parsing Rules into AST
+**2. Parsing Rules into AST**
 To dynamically create rules, we need a function that can parse rule strings (e.g., age > 30 AND department = 'Sales') and convert them into an AST. The following function uses regular expressions to tokenize the rule and then constructs the AST accordingly.
 Rule Parsing Function
 import re
@@ -83,7 +83,7 @@ Explanation
 2.	Tokenization: The string is split into tokens representing operands (e.g., age > 30) and operators (AND, OR).
 3.	AST Construction: Based on the operators, the function recursively builds an AST where each node contains either an operator or an operand.
 ________________________________________
-3. Combining Multiple Rules
+**3. Combining Multiple Rules**
 The rule engine allows the combination of multiple rules into a single, efficient AST. This can be useful when evaluating a series of conditions across different rules.
 Combining Rules Function
 def combine_rules(rules):
@@ -103,7 +103,7 @@ Explanation
 •	parse_rule: Each rule string is parsed into an AST using the parse_rule function.
 •	Combination: The rules are combined using the AND operator, but this can be extended to support more complex combination strategies (such as using a most-frequent operator heuristic).
 ________________________________________
-4. Evaluating Rules
+**4. Evaluating Rules**
 The rule engine evaluates the rules (represented by the AST) against user data. The evaluation traverses the AST and checks whether the conditions in the nodes are satisfied by the data.
 Rule Evaluation Function
 def evaluate_rule(ast_node, user_data):
@@ -138,7 +138,7 @@ Explanation
 1.	Operand Nodes: For operand nodes, the field (e.g., age, department) is extracted, and its value in user_data is compared against the rule condition.
 2.	Operator Nodes: For operator nodes, the function recursively evaluates the left and right child nodes based on the operator (AND/OR).
 ________________________________________
-5. Test Cases
+**5. Test Cases**
 The following tests ensure the rule engine behaves as expected:
 # Create rules
 rule1 = "((age > 30 AND department = 'Sales') OR (age < 25 AND department = 'Marketing')) AND (salary > 50000 OR experience > 5)"
@@ -155,7 +155,7 @@ user_data2 = {"age": 22, "department": "Marketing", "salary": 45000, "experience
 print(f"Evaluation for user_data1: {evaluate_rule(combined_ast, user_data1)}")  # Should be True
 print(f"Evaluation for user_data2: {evaluate_rule(combined_ast, user_data2)}")  # Should be False
 ________________________________________
-6. Database Design for Rule Storage
+**6. Database Design for Rule Storage**
 For rule persistence, we can store the rule strings and their corresponding ASTs in a SQL or NoSQL database. Below is a sample SQL schema for this purpose:
 CREATE TABLE rules (
     id INT PRIMARY KEY,
